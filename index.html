@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Allan Kenji Honda</title>
+<meta name="description" content="Allan Kenji Honda: full-stack developer intern and Computer Science student in São Paulo, building AI automation on the Microsoft stack.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an engineering log. Left-aligned grid, a to-scale timing chart as the hero exhibit,
+   a dated timeline, and Context / Built / Outcome cards for the work. */
+:root {
+  --paper: #F3F5F8;
+  --surface: #FFFFFF;
+  --ink: #0E1A2B;
+  --muted: #536079;
+  --line: #D6DCE6;
+  --accent: #1D5BD8;
+  --accent-ink: #FFFFFF;
+  --signal: #B36A00;
+  --manual: #8796AE;
+  --range: #D3DBE7;
+  --display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --s-1: 0.8125rem;
+  --s0: 1rem;
+  --s1: 1.1875rem;
+  --s2: clamp(1.375rem, 2.6vw, 1.75rem);
+  --s3: clamp(1.875rem, 4.2vw, 2.75rem);
+  --s4: clamp(2.75rem, 8vw, 5.5rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0A1120; --surface: #101A2D; --ink: #E6EBF3; --muted: #9AA6BB; --line: #22304A;
+    --accent: #7FA9FF; --accent-ink: #0A1120; --signal: #F2B33D; --manual: #7C8BA6; --range: #26354F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0A1120; --surface: #101A2D; --ink: #E6EBF3; --muted: #9AA6BB; --line: #22304A;
+  --accent: #7FA9FF; --accent-ink: #0A1120; --signal: #F2B33D; --manual: #7C8BA6; --range: #26354F;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--s0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 30; background: var(--paper);
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label {
+  font-family: var(--mono);
+  font-size: var(--s-1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Top bar */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--paper); border-bottom: 1px solid var(--line);
+}
+.topbar-in { display: flex; align-items: center; gap: 24px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-weight: 600; }
+.mark {
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em;
+  border: 1.5px solid var(--ink); padding: 3px 6px; border-radius: 4px;
+}
+.nav { display: flex; gap: 20px; margin-left: auto; }
+.nav a { color: var(--muted); text-decoration: none; font-size: 0.9375rem; }
+.nav a:hover { color: var(--ink); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 600 0.9375rem/1 var(--body);
+  padding: 12px 18px; border-radius: 6px; border: 1.5px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink); text-decoration: none; cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); filter: none; }
+.btn-small { padding: 8px 12px; font-size: 0.875rem; }
+.topbar .btn-small { margin-left: 4px; }
+
+/* Hero */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 48px; align-items: center; padding-block: 64px 40px;
+}
+.hero-copy { display: grid; gap: 18px; min-width: 0; }
+.name { font-size: var(--s4); font-weight: 800; line-height: 0.95; letter-spacing: -0.025em; }
+.thesis { font-family: var(--display); font-weight: 600; font-size: var(--s2); line-height: 1.25; max-width: 24ch; }
+.thesis em { font-style: normal; color: var(--signal); }
+.lede { color: var(--muted); max-width: 60ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 6px; }
+
+.timer {
+  margin: 0; min-width: 0; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 10px; padding: 22px 22px 18px; display: grid; gap: 14px;
+}
+.timer-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.timer svg { width: 100%; height: auto; display: block; }
+.timer-note { font-size: var(--s-1); color: var(--muted); }
+.t-label { font-family: var(--body); font-size: 13px; font-weight: 600; fill: var(--ink); }
+.t-value { font-family: var(--mono); font-size: 12px; fill: var(--ink); }
+.t-axis { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+.t-grid { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
+.t-base { stroke: var(--line); stroke-width: 1.5; }
+.bar-manual { fill: var(--manual); }
+.bar-range { fill: var(--range); }
+.bar-agent { fill: var(--signal); transform-box: fill-box; transform-origin: left center; animation: grow 0.9s cubic-bezier(.2, .7, .2, 1) 0.2s both; }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Facts */
+.facts { padding-block: 8px 24px; }
+.facts-list {
+  list-style: none; margin: 0; padding: 20px 0 0; border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;
+}
+.facts-list li { display: grid; gap: 4px; align-content: start; }
+.num { font-family: var(--display); font-weight: 800; font-size: var(--s3); line-height: 1; color: var(--signal); font-variant-numeric: tabular-nums; }
+.facts-list span:last-child { color: var(--muted); font-size: 0.9375rem; }
+
+/* Sections */
+.section { padding-block: 56px; display: grid; gap: 28px; }
+.sec-head { display: grid; gap: 8px; }
+.sec-head h2 { font-size: var(--s3); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; }
+.prose { display: grid; gap: 14px; max-width: 65ch; }
+
+/* Timeline */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.job {
+  display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px;
+  padding-block: 26px; border-top: 1px solid var(--line);
+}
+.job:last-child { border-bottom: 1px solid var(--line); }
+.when { display: grid; gap: 4px; align-content: start; }
+.date { font-family: var(--mono); font-size: 0.875rem; color: var(--ink); }
+.where { font-size: 0.875rem; color: var(--muted); }
+.what { display: grid; gap: 12px; min-width: 0; }
+.what h3 { font-size: var(--s1); font-weight: 700; line-height: 1.3; }
+.at { display: block; font-family: var(--body); font-weight: 500; font-size: 0.9375rem; color: var(--muted); }
+.bullets { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+.bullets li::marker { color: var(--muted); }
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li {
+  font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 4px; padding: 3px 7px;
+}
+
+/* Work */
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 22px; display: grid; gap: 14px; align-content: start; min-width: 0;
+}
+.card-feature { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: 32px; }
+.card-top { display: grid; gap: 6px; align-content: start; }
+.card h3 { font-size: var(--s1); font-weight: 700; line-height: 1.3; }
+.cbo { margin: 0; display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 8px 14px; }
+.cbo dt { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.cbo dd { margin: 0; }
+.outcome { font-weight: 600; }
+
+/* Skills */
+.skill-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.skill-col { display: grid; gap: 10px; align-content: start; }
+.skill-col h3 { font-size: var(--s1); font-weight: 700; }
+.skill-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.skill-list li {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding-block: 8px; border-bottom: 1px solid var(--line);
+}
+.lvl { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); white-space: nowrap; padding-top: 2px; }
+
+/* Contact */
+.contact-rows { display: grid; border-top: 1px solid var(--line); max-width: 760px; }
+.row {
+  display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 16px; align-items: center;
+  padding-block: 14px; border-bottom: 1px solid var(--line);
+}
+.row .value, .row a { overflow-wrap: anywhere; }
+.copy-status { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); min-height: 1em; }
+.foot { padding-block: 32px 40px; color: var(--muted); font-size: var(--s-1); }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 32px; padding-block: 40px 28px; }
+  .cards { grid-template-columns: 1fr; }
+  .card-feature { grid-template-columns: 1fr; }
+  .skill-cols { grid-template-columns: 1fr; gap: 24px; }
+  .facts-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .nav { display: none; }
+  .topbar .btn-small { margin-left: auto; }
+}
+@media (max-width: 640px) {
+  .job { grid-template-columns: 1fr; gap: 10px; }
+  .row { grid-template-columns: 1fr auto; }
+  .row .label { grid-column: 1 / -1; }
+  .section { padding-block: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bar-agent { animation: none; }
+}
+</style>
+<link rel="canonical" href="https://allanzinho73.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Allan Kenji Honda">
+<meta property="og:description" content="Full stack developer intern and Computer Science student in São Paulo. I turn repetitive work into reliable software, with AI and the Microsoft stack.">
+<meta property="og:url" content="https://allanzinho73.github.io/">
+<meta property="og:image" content="https://allanzinho73.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>html, body { margin: 0; } img { max-width: 100%; }</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#top"><span class="mark">AKH</span><span>Allan Kenji Honda</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-small" href="Allan_Kenji_Honda_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero" aria-label="Introduction">
+    <div class="hero-copy">
+      <p class="label">Full Stack Developer Intern · New Legal · São Paulo</p>
+      <h1 class="name">Allan Kenji Honda</h1>
+      <p class="thesis">I turn repetitive work into <em>reliable software</em>, with AI and the Microsoft stack.</p>
+      <p class="lede">Computer Science student at Mackenzie. At New Legal I build on SharePoint, Microsoft Graph and Power BI, and I wrote an AI agent that automates license data entry. Before that, I spent 1.5 years at TCS negotiating with partners and working between business and IT.</p>
+      <div class="actions">
+        <a class="btn" href="Allan_Kenji_Honda_Resume.pdf" target="_blank" rel="noopener">Open resume (PDF)</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/allan-honda-b0a80a290/" target="_blank" rel="noopener">LinkedIn</a>
+        <button class="btn btn-ghost" type="button" id="copy-email-hero" data-copy="allanhonda73@gmail.com">Copy email</button>
+      </div>
+    </div>
+
+    <figure class="timer" aria-labelledby="timer-title">
+      <div class="timer-head">
+        <span class="label" id="timer-title">License entry · time per record</span>
+        <span class="label">New Legal, 2026</span>
+      </div>
+      <svg viewBox="0 0 440 170" role="img" aria-label="Time per license record: 1 to 3 minutes by hand, about 30 seconds with the AI agent.">
+        <line class="t-grid" x1="100" y1="16" x2="100" y2="136"></line>
+        <line class="t-grid" x1="206.7" y1="16" x2="206.7" y2="136"></line>
+        <line class="t-grid" x1="313.3" y1="16" x2="313.3" y2="136"></line>
+        <line class="t-grid" x1="420" y1="16" x2="420" y2="136"></line>
+
+        <text class="t-label" x="0" y="52">By hand</text>
+        <rect class="bar-manual" x="100" y="30" width="106.7" height="34" rx="3"></rect>
+        <rect class="bar-range" x="206.7" y="30" width="213.3" height="34" rx="3"></rect>
+        <text class="t-value" x="313.3" y="52" text-anchor="middle">1–3 min</text>
+
+        <text class="t-label" x="0" y="108">AI agent</text>
+        <rect class="bar-agent" x="100" y="86" width="53.3" height="34" rx="3"></rect>
+        <text class="t-value" x="162" y="108">~30 s</text>
+
+        <line class="t-base" x1="100" y1="136" x2="420" y2="136"></line>
+        <text class="t-axis" x="100" y="156" text-anchor="middle">0</text>
+        <text class="t-axis" x="206.7" y="156" text-anchor="middle">1 min</text>
+        <text class="t-axis" x="313.3" y="156" text-anchor="middle">2 min</text>
+        <text class="t-axis" x="420" y="156" text-anchor="end">3 min</text>
+      </svg>
+      <p class="timer-note">Approximate times. The agent fills the form and attaches the documents, and its logic now also runs as native platform code.</p>
+    </figure>
+  </section>
+
+  <section class="wrap facts" aria-label="Key numbers">
+    <ul class="facts-list">
+      <li><span class="num">20+</span><span>bug tickets resolved in my first three weeks</span></li>
+      <li><span class="num">10+</span><span>corporate partnerships negotiated at TCS</span></li>
+      <li><span class="num">8.25</span><span>GPA out of 10 at Mackenzie</span></li>
+      <li><span class="num">PT · EN</span><span>Portuguese native, English fluent</span></li>
+    </ul>
+  </section>
+
+  <section class="wrap section" id="about">
+    <div class="sec-head">
+      <p class="label">About</p>
+      <h2>Business context first. Then code.</h2>
+    </div>
+    <div class="prose">
+      <p>I started at Tata Consultancy Services as a Young Apprentice, working across HR, Sales and IT. I prospected and negotiated corporate partnerships for the employee-benefits network and automated routine tasks with Python and Excel. Working between those teams, I learned to start from the problem people describe.</p>
+      <p>Today I study Computer Science at Mackenzie in the evening and work as a full-stack developer intern at New Legal. TypeScript and Next.js were new to me. Within three weeks I had resolved more than 20 tickets on a platform built on SharePoint, Microsoft Graph and Microsoft Entra ID.</p>
+      <p>I also built an AI agent for the license workflow, presented Claude's features to my team and recommended adopting them in daily work.</p>
+    </div>
+  </section>
+
+  <section class="wrap section" id="experience">
+    <div class="sec-head">
+      <p class="label">Experience</p>
+      <h2>Where I have worked and studied</h2>
+    </div>
+    <ol class="timeline">
+      <li class="job">
+        <div class="when"><span class="date">Oct 2026 – Present</span><span class="where">On-site · São Paulo</span></div>
+        <div class="what">
+          <h3>Full Stack Developer Intern <span class="at">New Legal (Jurisconte)</span></h3>
+          <ul class="bullets">
+            <li>Built a Claude-based AI agent that fills license forms and attaches documents in about 30 seconds instead of 1 to 3 minutes by hand, then built it into the platform's code.</li>
+            <li>Resolved 20+ bug tickets in my first three weeks while learning TypeScript and Next.js from scratch.</li>
+            <li>Presented Claude's AI features to the team and recommended adopting them in daily work.</li>
+            <li>Bringing Power BI financial reports into the platform, focused on calculation accuracy.</li>
+          </ul>
+          <ul class="tags" aria-label="Technologies">
+            <li>Next.js</li><li>TypeScript</li><li>SharePoint</li><li>Microsoft Graph</li><li>Entra ID</li><li>Power BI</li><li>AI agents</li><li>Vercel</li>
+          </ul>
+        </div>
+      </li>
+      <li class="job">
+        <div class="when"><span class="date">Jun 2023 – Jan 2025</span><span class="where">Brazil</span></div>
+        <div class="what">
+          <h3>Young Apprentice, HR, Sales &amp; IT <span class="at">Tata Consultancy Services (TCS)</span></h3>
+          <ul class="bullets">
+            <li>Prospected and negotiated 10+ corporate partnerships, expanding the employee-benefits network.</li>
+            <li>Acted as liaison between HR, Sales and IT teams, supporting process improvements.</li>
+            <li>Automated routine tasks with Python and Excel, supporting data analysis for HR, Sales and IT.</li>
+          </ul>
+          <ul class="tags" aria-label="Skills">
+            <li>Partner negotiation</li><li>Stakeholder communication</li><li>Python</li><li>Excel</li>
+          </ul>
+        </div>
+      </li>
+      <li class="job">
+        <div class="when"><span class="date">Jun 2024 – Jun 2028</span><span class="where">Expected · evening program</span></div>
+        <div class="what">
+          <h3>B.S. in Computer Science <span class="at">Mackenzie Presbyterian University</span></h3>
+          <p>GPA 8.25 out of 10. Coursework in Data Structures, Algorithms, Graph Theory, Databases and Numerical Methods.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap section" id="work">
+    <div class="sec-head">
+      <p class="label">Selected work</p>
+      <h2>Problems I have worked on</h2>
+    </div>
+    <div class="cards">
+      <article class="card card-feature">
+        <div class="card-top">
+          <p class="label">New Legal · 2026</p>
+          <h3>License entry agent</h3>
+          <ul class="tags" aria-label="Technologies"><li>AI agents</li><li>Browser automation</li><li>TypeScript</li></ul>
+        </div>
+        <dl class="cbo">
+          <dt>Context</dt><dd>Each license record took 1 to 3 minutes of typing and file uploads by hand.</dd>
+          <dt>Built</dt><dd>A Claude-based agent with browser automation that fills the form and attaches the documents. The logic now also lives in the platform's code.</dd>
+          <dt>Outcome</dt><dd class="outcome">About 30 seconds per record, more reliably.</dd>
+        </dl>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <p class="label">Graph Theory · Mackenzie</p>
+          <h3>Brazilian air network analysis</h3>
+        </div>
+        <dl class="cbo">
+          <dt>Context</dt><dd>How connected are Brazil's airports, and what are the shortest routes between them?</dd>
+          <dt>Built</dt><dd>A weighted graph from OpenFlights data in Python, with graph search, connectivity analysis, Dijkstra, Floyd-Warshall and Kruskal.</dd>
+          <dt>Outcome</dt><dd class="outcome">Shortest routes and a minimum spanning tree of the network.</dd>
+        </dl>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <p class="label">Data Structures · Mackenzie</p>
+          <h3>Balanced trees on COVID-19 data</h3>
+        </div>
+        <dl class="cbo">
+          <dt>Context</dt><dd>Real public-health records from SEADE, São Paulo State's statistics agency.</dd>
+          <dt>Built</dt><dd>AVL and Red-Black trees in Java, applied to the dataset.</dd>
+          <dt>Outcome</dt><dd class="outcome">Both self-balancing trees working on real data.</dd>
+        </dl>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <p class="label">Python · Excel</p>
+          <h3>Directory report automation</h3>
+        </div>
+        <dl class="cbo">
+          <dt>Context</dt><dd>Raw Windows directory listings that were hard to review.</dd>
+          <dt>Built</dt><dd>A Python script that turns the listings into Excel reports.</dd>
+          <dt>Outcome</dt><dd class="outcome">Structured workbooks with a summary per folder.</dd>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap section" id="skills">
+    <div class="sec-head">
+      <p class="label">Skills</p>
+      <h2>What I use, labeled honestly</h2>
+    </div>
+    <div class="skill-cols">
+      <div class="skill-col">
+        <h3>Microsoft and data</h3>
+        <ul class="skill-list">
+          <li><span>SharePoint</span><span class="lvl">at work</span></li>
+          <li><span>Microsoft Graph</span><span class="lvl">at work</span></li>
+          <li><span>Power BI</span><span class="lvl">at work</span></li>
+          <li><span>Excel</span><span class="lvl">advanced</span></li>
+          <li><span>SQL and NoSQL</span><span class="lvl">university</span></li>
+          <li><span>Microsoft Entra ID</span><span class="lvl">basic</span></li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Engineering</h3>
+        <ul class="skill-list">
+          <li><span>TypeScript and Next.js</span><span class="lvl">at work</span></li>
+          <li><span>Git, GitHub and Vercel</span><span class="lvl">at work</span></li>
+          <li><span>Python</span><span class="lvl">work and university</span></li>
+          <li><span>Java and C</span><span class="lvl">university</span></li>
+          <li><span>Data structures and algorithms</span><span class="lvl">university</span></li>
+          <li><span>AWS</span><span class="lvl">basic</span></li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>AI and ways of working</h3>
+        <ul class="skill-list">
+          <li><span>AI agents</span><span class="lvl">at work</span></li>
+          <li><span>Prompt engineering</span><span class="lvl">at work</span></li>
+          <li><span>Claude Code and Cursor</span><span class="lvl">at work</span></li>
+          <li><span>Partner negotiation</span><span class="lvl">TCS</span></li>
+          <li><span>Presenting tools to teams</span><span class="lvl">at work</span></li>
+          <li><span>Portuguese and English</span><span class="lvl">native, fluent</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="contact">
+    <div class="sec-head">
+      <p class="label">Contact</p>
+      <h2>Let's talk.</h2>
+    </div>
+    <p class="prose">Happy to talk about AI automation, the Microsoft stack, or anything on this page.</p>
+    <div class="contact-rows">
+      <div class="row">
+        <span class="label">Email</span>
+        <span class="value" id="email-text">allanhonda73@gmail.com</span>
+        <button class="btn btn-ghost btn-small" type="button" id="copy-email" data-copy="allanhonda73@gmail.com">Copy</button>
+      </div>
+      <div class="row">
+        <span class="label">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/allan-honda-b0a80a290/" target="_blank" rel="noopener">linkedin.com/in/allan-honda-b0a80a290</a>
+        <span></span>
+      </div>
+      <div class="row">
+        <span class="label">Resume</span>
+        <a href="Allan_Kenji_Honda_Resume.pdf" target="_blank" rel="noopener">Allan_Kenji_Honda_Resume.pdf</a>
+        <span></span>
+      </div>
+      <div class="row">
+        <span class="label">Based in</span>
+        <span class="value">Osasco · São Paulo, Brazil</span>
+        <span></span>
+      </div>
+    </div>
+    <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+  </section>
+</main>
+
+<footer class="wrap foot">© 2026 Allan Kenji Honda</footer>
+
+<script>
+(function () {
+  var status = document.getElementById('copy-status');
+  function selectEmail() {
+    var el = document.getElementById('email-text');
+    el.scrollIntoView({ block: 'center' });
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var original = btn.textContent;
+      var done = function (msg) {
+        btn.textContent = msg;
+        setTimeout(function () { btn.textContent = original; }, 2000);
+      };
+      try {
+        navigator.clipboard.writeText(text).then(function () {
+          done('Copied');
+          status.textContent = 'Email copied: ' + text;
+        }, function () {
+          selectEmail();
+          status.textContent = 'Email selected. Press Ctrl+C or Cmd+C to copy it.';
+        });
+      } catch (e) {
+        selectEmail();
+        status.textContent = 'Email selected. Press Ctrl+C or Cmd+C to copy it.';
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
